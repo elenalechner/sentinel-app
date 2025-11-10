@@ -1,20 +1,21 @@
+import os
 from flask import Flask, request, jsonify, send_from_directory
+
 app = Flask(_name_, static_folder='.')
 
-# Serve the dashboard page
+# Serve dashboard
 @app.route('/')
 def root():
     return send_from_directory('.', 'index.html')
 
-# Endpoint to receive commands from the dashboard
+# Handle commands from dashboard
 @app.route('/command', methods=['POST'])
 def command():
     cmd = request.json.get('command')
-    print("Command received:", cmd)  # Logs to Render console
-    # For now, simply respond back
+    print("Command received:", cmd)
     return jsonify(message=f"Command '{cmd}' executed successfully.")
 
-# Optional status endpoint (you can expand it later)
+# Optional status endpoint
 @app.route('/status')
 def status():
     return jsonify(status="Online")
